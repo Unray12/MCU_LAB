@@ -86,20 +86,9 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-	#define GPIO_PIN_(i) ((uint16_t)(1 << (i)))
-  void clearAllClock() {
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(4), SET);
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(5), SET);
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(6), SET);
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(7), SET);
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(8), SET);
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(9), SET);
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(10), SET);
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(11), SET);
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(12), SET);
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(13), SET);
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(14), SET);
-	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(15), SET);
+  void setNumberOnClock(uint8_t num) {
+	  if (num >= 0 && num <= 11)
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(num), RESET);
   }
   /* USER CODE END 2 */
 
@@ -108,8 +97,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  HAL_Delay(1000);
-	  clearAllClock();
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -165,7 +153,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7
                           |GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_11
-                          |GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15, GPIO_PIN_RESET);
+                          |GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15, GPIO_PIN_SET);
 
   /*Configure GPIO pins : PA4 PA5 PA6 PA7
                            PA8 PA9 PA10 PA11
