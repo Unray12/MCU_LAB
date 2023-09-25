@@ -86,9 +86,9 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  void setNumberOnClock(uint8_t num) {
+  void clearNumberOnClock(uint8_t num) {
 	  if (num >= 0 && num <= 11)
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(num), RESET);
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(num), SET);
   }
   /* USER CODE END 2 */
 
