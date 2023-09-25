@@ -86,10 +86,24 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  void clearNumberOnClock(uint8_t num) {
-	  if (num >= 0 && num <= 11)
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(num), SET);
-  }
+	#define GPIO_PIN_(i) ((uint16_t)(1 << (i)))
+	void clearAllClock() {
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(4), SET);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(5), SET);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(6), SET);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(7), SET);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(8), SET);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(9), SET);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(10), SET);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(11), SET);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(12), SET);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(13), SET);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(14), SET);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(15), SET);
+	}
+	uint8_t sec = 0;
+	uint8_t min = 0;
+	uint8_t hour = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -97,7 +111,22 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  if (sec == 60) {
+		  min++;
+		  sec = 0;
+	  }
+	  if (min == 60) {
+		  hour++;
+		  sec = 0;
+	  }
+	  if (hour == 12)
+		  hour = 0;
+	  clearAllClock();
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(sec / 5 + 4), RESET);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(min / 5 + 4), RESET);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_(hour + 4), RESET);
+	  sec++;
+	  HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
